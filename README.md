@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Lo último de todo. Ruby 2.5 y rails 5
+Probar serializador en Ruby
+Agregar validaciones
+Agregar seguridad?
+usar caché
+tests!
