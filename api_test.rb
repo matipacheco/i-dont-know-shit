@@ -36,11 +36,9 @@ load_fighters.each do |fighter|
   response  = Net::HTTP.get_response(uri)
 
   if response.is_a?(Net::HTTPSuccess)
-    result = JSON.parse(response.body)['data']['results']
-    puts result
+    result = JSON.parse(response.body)['data']['results'].first
 
-    character = Character.new()
-    fighters << character.from_json(result.to_json)
+    fighters << Character.new().from_json(result.to_json)
 
   else
     raise "API conection error!"
