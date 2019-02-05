@@ -45,6 +45,6 @@ load_fighters.each do |fighter|
   end
 end
 
-fighter_1, fighter_2 = fighters
+fighter_1, fighter_2 = fighters.sort_by(&:LUCK).reverse
 
 puts 'Los luchadores son: ' + fighter_1.name.to_s + ' y ' + fighter_2.name.to_s
