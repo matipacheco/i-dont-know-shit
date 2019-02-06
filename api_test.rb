@@ -2,14 +2,10 @@ require 'json'
 require 'digest'
 require 'net/http'
 
+require_relative 'models/battle'
 require_relative 'models/character'
 
-def load_fighters
-  File.foreach('characters_id.txt') do |line|
-    fighter_1, fighter_2 = line.split(',').sample(2)
-    return [fighter_1, fighter_2]
-  end
-end
+
 
 ts = '10'
 private_key = ENV['MARVEL_PRIVATE_KEY']
@@ -26,6 +22,15 @@ def parameters(ts, private_key, public_key)
     :hash => request_hash(ts, private_key, public_key),
     :apikey => public_key
   }
+end
+
+
+
+def load_fighters
+  File.foreach('characters_id.txt') do |line|
+    fighter_1, fighter_2 = line.split(',').sample(2)
+    return [fighter_1, fighter_2]
+  end
 end
 
 fighters = []
@@ -45,6 +50,5 @@ load_fighters.each do |fighter|
   end
 end
 
-fighter_1, fighter_2 = fighters.sort_by(&:LUCK).reverse
-
-puts 'Los luchadores son: ' + fighter_1.name.to_s + ' y ' + fighter_2.name.to_s
+battle = Battle.new(fighters.sort_by(&:dice_roll).reverse)
+puts battle.game_over

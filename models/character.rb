@@ -17,12 +17,24 @@ class Character
       end
     end
 
-    self.STR  = rand(1..100)
-    self.HP   = rand(1..400)
-    self.LUCK = rand(1..10)
+    @STR  = rand(1..100)
+    @HP   = rand(1..400)
+    @LUCK = rand(1..10)
   end
 
   def validate
     id.is_a?(Integer) && name.is_a?(String)
+  end
+
+  def hit
+    @STR
+  end
+
+  def dice_roll
+    @LUCK
+  end
+
+  def alive?
+    @HP > 0
   end
 end
