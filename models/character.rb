@@ -26,6 +26,16 @@ class Character
     id.is_a?(Integer) && name.is_a?(String)
   end
 
+  def attributes
+    {
+      'id' =>  id,
+      'name' => name,
+      'STR' =>  @STR,
+      'HP' =>   @HP,
+      'LUCK' => @LUCK
+    }
+  end
+
   def hit
     @STR
   end
