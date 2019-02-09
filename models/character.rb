@@ -6,7 +6,7 @@ require 'active_model'
 class Character
   include ActiveModel::Serializers::JSON
 
-  attr_accessor :id, :name, :STR, :HP, :LUCK
+  attr_accessor :id, :name, :str, :hp, :luck
 
   def attributes=(hash)
     hash.each do |key, value|
@@ -17,34 +17,34 @@ class Character
       end
     end
 
-    @STR  = rand(1..100)
-    @HP   = rand(1..400)
-    @LUCK = rand(1..10)
+    @str  = rand(1..100)
+    @hp   = rand(1..400)
+    @luck = rand(1..10)
   end
 
   def validate
-    id.is_a?(Integer) && name.is_a?(String)
+    id.is_a?(Integer) && name.is_a?(string)
   end
 
   def to_json
     {
-      'id'   => id,
+      'id' => id,
       'name' => name,
-      'STR'  => @STR,
-      'HP'   => @HP,
-      'LUCK' => @LUCK
+      'str' => @str,
+      'hp' => @hp,
+      'luck' => @luck
     }
   end
 
   def hit
-    @STR
+    @str
   end
 
   def dice_roll
-    @LUCK
+    @luck
   end
 
   def alive?
-    @HP > 0
+    @hp > 0
   end
 end
