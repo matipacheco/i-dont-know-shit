@@ -16,8 +16,8 @@ public_key  = ENV['MARVEL_PUBLIC_KEY']
 
 
 def connect_to_mongo
-  client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'marvel')
-  client['heroes'.to_sym]
+  client = Mongo::Client.new([ ENV['MONGO_HOST'] ], :database => ENV['MARVEL_DATABASE'])
+  client[ENV['MARVEL_COLLECTION'].to_sym]
 end
 
 
