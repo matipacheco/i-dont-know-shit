@@ -2,25 +2,12 @@ require 'json'
 require 'digest'
 require 'net/http'
 
-require 'mongo'
-
-require_relative 'models/battle'
+require_relative 'mongo_connection'
 require_relative 'models/character'
-
-
 
 ts = '10'
 private_key = ENV['MARVEL_PRIVATE_KEY']
 public_key  = ENV['MARVEL_PUBLIC_KEY']
-
-
-
-def connect_to_mongo
-  client = Mongo::Client.new([ ENV['MONGO_HOST'] ], :database => ENV['MARVEL_DATABASE'])
-  client[ENV['MARVEL_COLLECTION'].to_sym]
-end
-
-
 
 def request_hash(ts, private_key, public_key)
   Digest::MD5.hexdigest ts + private_key + public_key
@@ -56,7 +43,5 @@ def insert_heroes(ts, private_key, public_key)
     puts e.message
   end
 end
-
-
 
 insert_heroes(ts, private_key, public_key)
