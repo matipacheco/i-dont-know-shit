@@ -38,7 +38,7 @@ end
 def insert_heroes(ts, private_key, public_key)
   collection = connect_to_mongo
 
-  uri       = URI('https://gateway.marvel.com/v1/public/characters/1010870')
+  uri       = URI('https://gateway.marvel.com/v1/public/characters')
   uri.query = URI.encode_www_form(parameters(ts, private_key, public_key))
   response  = Net::HTTP.get_response(uri)
 
@@ -47,13 +47,12 @@ def insert_heroes(ts, private_key, public_key)
       results = JSON.parse(response.body)['data']['results']
 
       results.each do |hero|
-        collection.insert_one(Character.new().from_json(hero.to_json).to_json)
+        character = Character.new().from_json(hero.to_json)
+        collection.insert_one(character.to_json)
       end
-      puts '------------SUCCESSSSSSSSSS'
     end
 
   rescue Exception => e
-    puts '------------error?'
     puts e.message
   end
 end

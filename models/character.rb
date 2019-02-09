@@ -26,12 +26,12 @@ class Character
     id.is_a?(Integer) && name.is_a?(String)
   end
 
-  def attributes
+  def to_json
     {
-      'id' =>  id,
+      'id'   => id,
       'name' => name,
-      'STR' =>  @STR,
-      'HP' =>   @HP,
+      'STR'  => @STR,
+      'HP'   => @HP,
       'LUCK' => @LUCK
     }
   end
