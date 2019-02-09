@@ -6,32 +6,34 @@ require_relative '../mongo_connection'
 class Battle
   attr_accessor :fighter1, :fighter2, :game_over
 
-  def initialize
-    fighters   = []
-    collection = connect_to_mongo
-
-    collection.aggregate([{ '$sample' => { 'size' => 2 } }]).each do |fighter|
-      fighters << Character.new.from_json(fighter.to_json)
-    end
+  def initialize(fighters_json = nil)
+    fighters = fighters_json.nil? ? fighters_from_collection : fighters_from_json(fighters_json)
 
     @game_over = !fighters.map(&:alive?).all?
     @fighter1, @fighter2 = fighters.sort_by(&:luck).reverse
+  end
 
-    puts '---------------------------------'
-    puts @fighter1.to_json
-    puts '---------------------------------'
-    puts @fighter2.to_json
+  def fighters_from_json(fighters_json)
+    fighters_json.map { |fighter|
+      Character.new.from_json(fighter)
+    }
+  end
+
+  def fighters_from_collection
+    collection = connect_to_mongo
+
+    collection.aggregate([{ '$sample' => { 'size' => 2 } }]).map { |fighter|
+      Character.new.from_json(fighter.to_json)
+    }
   end
 
   def attack(fighter1, fighter2)
     unless fighter1.alive?
       @game_over = true
-      puts fighter2.name + ' WINS!'
-
-      return
+      return fighter2.name + ' WINS!'
     end
 
-    fighter2.HP -= fighter1.hit
+    fighter2.hp -= fighter1.hit
   end
 
   def fight!
@@ -45,5 +47,3 @@ class Battle
     end
   end
 end
-
-Battle.new.give_em_hell!
