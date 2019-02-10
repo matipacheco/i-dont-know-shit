@@ -36,10 +36,6 @@ class Character
     }
   end
 
-  def hit
-    @str
-  end
-
   def dice_roll
     @luck
   end
