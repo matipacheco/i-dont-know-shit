@@ -45,10 +45,14 @@ Finally:
 This will randomly choose two heroes from our Marvel database, but you can select two specific heroes to fight, passing a heroes list as a parameter to the _Battle_ constructor. This is shown below:
 
 	require_relative 'models/battle'
-	
+
     fighters_json = [
       {'id': 1009178,'name': 'Beef','str': 47,'hp': 157,'luck': 1}.to_json,
       {'id': 1009169,'name': 'Baron Strucker','str': 70,'hp': 62,'luck': 10}.to_json
     ]
 
     Battle.new(fighters_json).give_em_hell!
+
+## Note: Solution development
+
+All the code here was developed and tested using **Ruby 2.5.1**!
