@@ -56,3 +56,7 @@ This will randomly choose two heroes from our Marvel database, but you can selec
 ## Note: Solution development
 
 All the code here was developed and tested using **Ruby 2.5.1**!
+
+## Note: Battle
+
+As I said ont the class comment, the fight logic isnt 100% correct, but you get the idea of it :smirk:
